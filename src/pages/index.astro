@@ -1,0 +1,52 @@
+---
+import * as cardData from "../cards.json";
+
+interface Card {
+  name: string;
+  img: string;
+  sign: string;
+}
+
+const cardList: Card[] = cardData.cards;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link type="text/css" rel="stylesheet" href="/src/styles/global.css" />
+    <link type="text/css" rel="stylesheet" href="/src/styles/cards.css" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+
+  <div class="sidecontrols absolute left-3 top-1/2 z-10 flex flex-row gap-3">
+    <div id="refresher" class="bg-white border-1 p-2 pb-3 w-10 h-10 flex justify-center items-center cursor-pointer hover:bg-black hover:text-white transition-all">⟲</div>
+    <div id="new-card" class="bg-white border-1 p-2 pb-3 w-10 h-10 flex justify-center items-center cursor-pointer hover:bg-black hover:text-white transition-all">+</div>
+  </div>
+
+  <body>
+
+    <div class="cardcontainer">
+        <!--{
+                cardList.map((card) => (
+                  <div class="card max-w-60">
+                    <img class="cardimg border-1" src={card.img} />
+                    <div class="cardname bg-white border-1 !border-t-0 p-1 box-border w-fit inline-block">{card.sign}</div>
+                    <div class="cardname bg-white border-1 !border-t-0 p-1 box-border w-fit inline-block">{card.name}</div>
+                  </div>
+                ))
+            }-->
+    </div>
+
+    <svg id="lines-svg"></svg>
+
+    <div class="debug_cardstatus -z-10 w-1/2 h-1/4 right-5 bottom-5 absolute flex text-gray-500 font-mono text-sm text-right inline-block">
+      Current cards:<br>
+      <div class="debug_cs_content"></div>
+    </div>
+
+    <script src="/src/js/cardlogic.js"></script>
+  </body>
+</html>

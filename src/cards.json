@@ -1,0 +1,44 @@
+{
+  "cards": [
+    {
+      "name": "test1",
+      "img": "/src/img/img (1).jpg",
+      "sign": "☉︎"
+    },
+    {
+      "name": "test2",
+      "img": "/src/img/img (2).jpg",
+      "sign": "☾"
+    },
+    {
+      "name": "test3",
+      "img": "/src/img/img (3).jpg",
+      "sign": "🜚︎"
+    },
+    {
+      "name": "test4",
+      "img": "/src/img/img (4).jpg",
+      "sign": "☾"
+    },
+    {
+      "name": "test5",
+      "img": "/src/img/img (5).jpg",
+      "sign": "☉︎"
+    },
+    {
+      "name": "test6",
+      "img": "/src/img/img (6).jpg",
+      "sign": "🜚︎"
+    },
+    {
+      "name": "test7",
+      "img": "/src/img/img (7).jpg",
+      "sign": "☾"
+    },
+    {
+      "name": "test8",
+      "img": "/src/img/img (8).jpg",
+      "sign": "☉︎"
+    }
+  ]
+}

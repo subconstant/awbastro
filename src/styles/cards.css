@@ -19,7 +19,13 @@ arcana-card {
 }
 
 .cardcontainer{
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100%;
+}
+
+.posgrid > div{
+  @apply flex justify-center items-center;
+  font-size: 8pt;
+  opacity: 0.2;
 }

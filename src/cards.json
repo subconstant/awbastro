@@ -39,6 +39,26 @@
       "name": "test8",
       "img": "/src/img/img (8).jpg",
       "sign": "☉︎"
+    },
+    {
+      "name": "test9",
+      "img": "/src/img/img (9).jpg",
+      "sign": "🜚︎"
+    },
+    {
+      "name": "test10",
+      "img": "/src/img/img (10).jpg",
+      "sign": "☾"
+    },
+    {
+      "name": "test11",
+      "img": "/src/img/img (11).jpg",
+      "sign": "☉︎"
+    },
+    {
+      "name": "test12",
+      "img": "/src/img/img (12).jpg",
+      "sign": "🜚︎"
     }
   ]
 }

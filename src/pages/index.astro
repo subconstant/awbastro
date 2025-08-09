@@ -21,23 +21,55 @@ const cardList: Card[] = cardData.cards;
     <title>Astro</title>
   </head>
 
-  <div class="sidecontrols absolute left-3 top-1/2 z-10 flex flex-row gap-3">
+  <div class="sidecontrols absolute left-3 top-1/2 z-10 flex flex-col gap-3">
     <div id="refresher" class="bg-white border-1 p-2 pb-3 w-10 h-10 flex justify-center items-center cursor-pointer hover:bg-black hover:text-white transition-all">⟲</div>
     <div id="new-card" class="bg-white border-1 p-2 pb-3 w-10 h-10 flex justify-center items-center cursor-pointer hover:bg-black hover:text-white transition-all">+</div>
+    <div id="debug-button" class="bg-white border-1 p-2 pb-3 w-10 h-10 flex justify-center items-center cursor-pointer hover:bg-black hover:text-white transition-all">!</div>
   </div>
 
-  <body>
+  <body class="">
+    <div class="flex content-center absolute top-0 left-0 w-full h-full z-0">
+      <div class="posgrid m-auto top-0 left-0 w-[90%] h-[90%] grid grid-cols-7 grid-rows-5 gap-0">
+        <div id="gp1"></div>
+        <div id="gp2"></div>
+        <div id="gp3"></div>
+        <div id="gp4"></div>
+        <div id="gp5"></div>
+        <div id="gp6"></div>
+        <div id="gp7"></div>
+        <div id="gp8"></div>
+        <div id="gp9"></div>
+        <div id="gp10"></div>
+        <div id="gp11"></div>
+        <div id="gp12"></div>
+        <div id="gp13"></div>
+        <div id="gp14"></div>
+        <div id="gp15"></div>
+        <div id="gp16"></div>
+        <div id="gp17"></div>
+        <div id="gp18"></div>
+        <div id="gp19"></div>
+        <div id="gp20"></div>
+        <div id="gp21"></div>
+        <div id="gp22"></div>
+        <div id="gp23"></div>
+        <div id="gp24"></div>
+        <div id="gp25"></div>
+        <div id="gp26"></div>
+        <div id="gp27"></div>
+        <div id="gp28"></div>
+        <div id="gp29"></div>
+        <div id="gp30"></div>
+        <div id="gp31"></div>
+        <div id="gp32"></div>
+        <div id="gp33"></div>
+        <div id="gp34"></div>
+        <div id="gp35"></div>
+      </div>
+    </div>
 
-    <div class="cardcontainer">
-        <!--{
-                cardList.map((card) => (
-                  <div class="card max-w-60">
-                    <img class="cardimg border-1" src={card.img} />
-                    <div class="cardname bg-white border-1 !border-t-0 p-1 box-border w-fit inline-block">{card.sign}</div>
-                    <div class="cardname bg-white border-1 !border-t-0 p-1 box-border w-fit inline-block">{card.name}</div>
-                  </div>
-                ))
-            }-->
+
+    <div class="cardcontainer absolute top-0 left-0 w-full h-full">
     </div>
 
     <svg id="lines-svg"></svg>

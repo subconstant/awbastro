@@ -1,0 +1,20 @@
+{
+  "patterns": [
+    {
+      "requirement": 4,
+      "points": [ 11, 17, 19, 25 ]
+    },
+    {
+      "requirement": 4,
+      "points": [ 4, 15, 21, 32 ]
+    },
+    {
+      "requirement": 4,
+      "points": [ 9, 13, 23, 27 ]
+    },
+    {
+      "requirement": 4,
+      "points": [ 11, 16, 20, 25 ]
+    }
+  ]
+}

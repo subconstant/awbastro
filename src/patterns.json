@@ -15,6 +15,62 @@
     {
       "requirement": 4,
       "points": [ 11, 16, 20, 25 ]
+    },
+    {
+      "requirement": 5,
+      "points": [ 4, 9, 13, 30, 34 ]
+    },
+    {
+      "requirement": 5,
+      "points": [ 3, 5, 16, 20, 32 ]
+    },
+    {
+      "requirement": 5,
+      "points": [ 3, 5, 18, 31, 33 ]
+    },
+    {
+      "requirement": 5,
+      "points": [ 4, 17, 18, 19, 32 ]
+    },
+    {
+      "requirement": 5,
+      "points": [ 11, 16, 20, 24, 26 ]
+    },
+    {
+      "requirement": 5,
+      "points": [ 4, 16, 18, 20, 32 ]
+    },
+    {
+      "requirement": 5,
+      "points": [ 4, 10, 12, 18, 32 ]
+    },
+    {
+      "requirement": 6,
+      "points": [ 4, 10, 12, 24, 26, 32 ]
+    },
+    {
+      "requirement": 6,
+      "points": [ 4, 9, 13, 18, 31, 33 ]
+    },
+    {
+      "requirement": 6,
+      "points": [ 9, 11, 13, 23, 25, 27 ]
+    },
+    {
+      "requirement": 6,
+      "points": [ 4, 9, 13, 23, 27, 32 ]
+    },
+    {
+      "requirement": 6,
+      "points": [ 10, 12, 16, 20, 24, 26 ]
+    },
+    {
+      "requirement": 6,
+      "points": [ 11, 15, 17, 19, 21, 25 ]
+    },
+    {
+      "requirement": 6,
+      "points": [ 4, 12, 16, 20, 24, 32 ]
     }
   ]
 }

@@ -15,17 +15,18 @@ const cardContainer = document.querySelector(".cardcontainer");
 const svg = document.getElementById("lines-svg");
 const svgNS = "http://www.w3.org/2000/svg";
 const defaultCardCount = 4;
+const maxCardCount = 6;
 var svgAnimDuration = 0.5; // Default animation duration for SVG lines
 var gridPositions = [];
 
-function testPatternPositions() {
+function patternPlace() {
   resetSvgAnimation();
   console.log(svgAnimDuration);
   //const pattern = cardPatternData.patterns
   // .find(p => p.requirement === 4);
   //const pattern = getRandom(cardPatternData.patterns);
   const pattern = getRandom(cardPatternData.patterns.filter(p => p.requirement === cardStore.get().spawnedCards.length));
-  console.log("Testing pattern positions:", pattern.points);
+  console.log("Moving cards to pattern:", pattern.points);
 
   for (let i = 0; i < cardStore.get().spawnedCards.length; i++) {
     const card = cardStore.get().spawnedCards[i];
@@ -40,9 +41,6 @@ function testPatternPositions() {
       y: getElementCenter(point).y - cardElement.offsetHeight / 2,
       onComplete: updateLines
     });
-
-    //setTimeout(updateLines, 400);
-    
   }
 }
 
@@ -67,6 +65,21 @@ function computeGrid(){
   });
 }
 
+function waitFor(element) {
+    return new Promise((resolve) => {
+        const observer = new MutationObserver((mutations, observer) => {
+            if (element) {
+                observer.disconnect();
+                resolve(element);
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+        });
+    });
+}
 
 // --- 2. PURE UI FUNCTIONS ---
 // These functions only affect the view. They don't manage state.
@@ -110,7 +123,7 @@ function updateLines() {
     drawSVG: "0%",
     ease: "power1.inOut",
     stagger: 0.05,
-    afterCallback: () => {
+    onComplete: () => {
       svgAnimDuration = 0;
     }
   });
@@ -178,7 +191,7 @@ cardStore.listen(currentState => {
     }
   });
 
-   document.querySelector(".debug_cs_content").innerHTML = spawnedNames;
+   //document.querySelector(".debug_cs_content").innerHTML = spawnedNames;
 
   // Lines need to be updated after any potential additions.
   // setTimeout gives the DOM a moment to update.
@@ -190,12 +203,17 @@ cardStore.listen(currentState => {
 
 document.querySelector("#refresher").addEventListener("click", repositionAllCards);
 
-document.querySelector("#debug-button").addEventListener("click", testPatternPositions);
+document.querySelector("#debug-button").addEventListener("click", patternPlace);
 
 document.querySelector("#new-card").addEventListener("click", () => {
-  console.log('[UI] User wants to spawn a new card.');
+  if (cardStore.get().spawnedCards.length >= maxCardCount) {
+    const deletedCard = getRandom(cardStore.get().spawnedCards);
+    despawnCard(deletedCard.name);
+  }
   spawnRandomCards(1);
-  repositionAllCards();
+  setTimeout(() => {
+    patternPlace();
+  }, 100);
 });
 
 // Use event delegation for removing cards
@@ -206,8 +224,13 @@ cardContainer.addEventListener("click", (e) => {
     const cardName = cardElement.dataset.name;
     console.log(`[UI] User clicked to remove card: ${cardName}`);
     despawnCard(cardName);
-    spawnRandomCards(1);
-    repositionAllCards();
+    if (cardContainer.children.length <= defaultCardCount) {
+      spawnRandomCards(1);
+    }
+
+    //repositionAllCards();
+    setTimeout(patternPlace, 100);
+    //patternPlace();
   }
 });
 
@@ -224,8 +247,17 @@ async function main() {
   resetSvgAnimation();
   computeGrid();
   spawnRandomCards(defaultCardCount);
+
+  Array.from(cardContainer.children).forEach(card => {
+    card.getBoundingClientRect();
+  });
+
+  setTimeout(() => {
+    patternPlace();
+  }, 500);
+
   updateLines();
-  repositionAllCards();
+  //repositionAllCards();
 }
 
 window.addEventListener('DOMContentLoaded', () => {

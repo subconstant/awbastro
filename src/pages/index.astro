@@ -10,6 +10,8 @@ interface Card {
 const cardList: Card[] = cardData.cards;
 ---
 
+<!-- ⬆️ unused but keeping for reference -->
+
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -17,12 +19,10 @@ const cardList: Card[] = cardData.cards;
     <link type="text/css" rel="stylesheet" href="/src/styles/global.css" />
     <link type="text/css" rel="stylesheet" href="/src/styles/cards.css" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>Arcana @ Wrong Biennale</title>
   </head>
 
   <div class="sidecontrols absolute left-3 top-1/2 z-10 flex flex-col gap-3">
-    <div id="refresher" class="bg-white border-1 p-2 pb-3 w-10 h-10 flex justify-center items-center cursor-pointer hover:bg-black hover:text-white transition-all">⟲</div>
     <div id="new-card" class="bg-white border-1 p-2 pb-3 w-10 h-10 flex justify-center items-center cursor-pointer hover:bg-black hover:text-white transition-all">+</div>
     <div id="debug-button" class="bg-white border-1 p-2 pb-3 w-10 h-10 flex justify-center items-center cursor-pointer hover:bg-black hover:text-white transition-all">!</div>
   </div>
@@ -68,17 +68,11 @@ const cardList: Card[] = cardData.cards;
       </div>
     </div>
 
-
     <div class="cardcontainer absolute top-0 left-0 w-full h-full">
     </div>
 
     <svg id="lines-svg"></svg>
 
-    <!--<div class="debug_cardstatus -z-10 w-1/2 h-1/4 right-5 bottom-5 absolute flex text-gray-500 font-mono text-sm text-right inline-block">
-      Current cards:<br>
-      <div class="debug_cs_content"></div>
-    </div>-->
-
-    <script src="/src/js/cardlogic.js"></script>
+    <script src="/src/js/main.js"></script>
   </body>
 </html>

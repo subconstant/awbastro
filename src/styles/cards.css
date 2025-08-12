@@ -29,7 +29,9 @@ arcana-card:hover {
 }
 
 .posgrid > div{
-  @apply flex justify-center items-center hover:opacity-100;
+  display: flex;
+  justify-items: center;
+  align-items: center;
   font-size: 8pt;
   opacity: 0;
 }

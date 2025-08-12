@@ -1,13 +1,10 @@
-// --- 1. IMPORTS & SETUP ---
 import gsap from "gsap";
 import drawSVG from "gsap/DrawSVGPlugin";
-import "./cardcomponent.js"; // Your Lit component
-import initialCardData from "../cards.json"; // Import the JSON data directly
+import "./cardcomponent.js";
+import initialCardData from "../cards.json";
 import cardPatternData from "../patterns.json";
 
-// Import the store and all its actions
 import { cardStore, initializeCards, spawnRandomCards, despawnCard } from "./cardstorage.js";
-
 
 gsap.registerPlugin(drawSVG);
 
@@ -19,32 +16,9 @@ const maxCardCount = 6;
 var svgAnimDuration = 0.5; // Default animation duration for SVG lines
 var gridPositions = [];
 
-function patternPlace() {
-  resetSvgAnimation();
-  console.log(svgAnimDuration);
-  //const pattern = cardPatternData.patterns
-  // .find(p => p.requirement === 4);
-  //const pattern = getRandom(cardPatternData.patterns);
-  const pattern = getRandom(cardPatternData.patterns.filter(p => p.requirement === cardStore.get().spawnedCards.length));
-  console.log("Moving cards to pattern:", pattern.points);
 
-  for (let i = 0; i < cardStore.get().spawnedCards.length; i++) {
-    const card = cardStore.get().spawnedCards[i];
-    const cardElement = document.querySelector('[data-name="' + card.name + '"]');
-    const point = document.getElementById('gp' + pattern.points[i]);
+// Helpers
 
-    console.log(`Moving card ${card.name} to point ${point.id} at (${getElementCenter(point).x}, ${getElementCenter(point).y})`);
-
-    gsap.to(cardElement, {
-      duration: 0.4,
-      x: getElementCenter(point).x - cardElement.offsetWidth / 2,
-      y: getElementCenter(point).y - cardElement.offsetHeight / 2,
-      onComplete: updateLines
-    });
-  }
-}
-
-// helper functions
 function getElementCenter(element) {
   const rect = element.getBoundingClientRect();
   const centerX = rect.left + rect.width / 2;
@@ -81,16 +55,12 @@ function waitFor(element) {
     });
 }
 
-// --- 2. PURE UI FUNCTIONS ---
-// These functions only affect the view. They don't manage state.
+
+// SVG Lines
 
 function resetSvgAnimation() {
-  svgAnimDuration = 0.5; // Reset animation duration for new animations
+  svgAnimDuration = 0.5;
 }
-
-/**
- * Draws SVG lines between all elements currently in the card container.
- */
 function updateLines() {
   svg.innerHTML = "";
   const spawnedElements = cardContainer.children;
@@ -129,35 +99,35 @@ function updateLines() {
   });
 }
 
-/**
- * Randomly positions all cards currently in the container.
- */
-function repositionAllCards() {
+
+// Cards / Listeners
+
+function patternPlace() {
   resetSvgAnimation();
+  //const pattern = cardPatternData.patterns
+  // .find(p => p.requirement === 4);
+  //const pattern = getRandom(cardPatternData.patterns);
+  const pattern = getRandom(cardPatternData.patterns.filter(p => p.requirement === cardStore.get().spawnedCards.length));
+  console.log("Moving cards to pattern:", pattern.points);
 
-  const spawnedElements = Array.from(cardContainer.children);
+  for (let i = 0; i < cardStore.get().spawnedCards.length; i++) {
+    const card = cardStore.get().spawnedCards[i];
+    const cardElement = document.querySelector('[data-name="' + card.name + '"]');
+    const point = document.getElementById('gp' + pattern.points[i]);
 
-  spawnedElements.forEach((card) => {
-    let randomPosition = getRandom(gridPositions);
-    console.log(`[UI] Repositioning card ${card.dataset.name} to ${randomPosition.x}, ${randomPosition.y}`);
-    gsap.to(card, {
+    console.log(`Moving card ${card.name} to point ${point.id} at (${getElementCenter(point).x}, ${getElementCenter(point).y})`);
+
+    gsap.to(cardElement, {
       duration: 0.4,
-      x: randomPosition.x - card.offsetWidth / 2,
-      y: randomPosition.y - card.offsetHeight / 2
+      x: getElementCenter(point).x - cardElement.offsetWidth / 2,
+      y: getElementCenter(point).y - cardElement.offsetHeight / 2,
+      onComplete: updateLines
     });
-  });
-
-  // Update lines after the animation completes
-  setTimeout(updateLines, 400);
+  }
 }
 
-// --- 3. THE RENDERER (The heart of the new system) ---
-// This listens for any change to the store and syncs the UI.
 cardStore.listen(currentState => {
-  console.log('[UI] Store changed, re-rendering spawned cards...');
-  resetSvgAnimation(); 
-
-  // This is a more advanced sync than innerHTML = '' to allow for animations.
+  resetSvgAnimation();
   const spawnedNames = currentState.spawnedCards.map(c => c.name);
   const existingElements = Array.from(cardContainer.children);
 
@@ -170,7 +140,7 @@ cardStore.listen(currentState => {
         scale: 0.5,
         onComplete: () => {
           el.remove();
-          updateLines(); // Update lines after a card is removed
+          updateLines();
         }
       });
     }
@@ -191,17 +161,7 @@ cardStore.listen(currentState => {
     }
   });
 
-   //document.querySelector(".debug_cs_content").innerHTML = spawnedNames;
-
-  // Lines need to be updated after any potential additions.
-  // setTimeout gives the DOM a moment to update.
-  //setTimeout(updateLines, 50);
 });
-
-// --- 4. EVENT LISTENERS ---
-// Event listeners ONLY call store actions or pure UI functions.
-
-document.querySelector("#refresher").addEventListener("click", repositionAllCards);
 
 document.querySelector("#debug-button").addEventListener("click", patternPlace);
 
@@ -216,21 +176,16 @@ document.querySelector("#new-card").addEventListener("click", () => {
   }, 100);
 });
 
-// Use event delegation for removing cards
 cardContainer.addEventListener("click", (e) => {
-  // Find the parent arcana-card element
   const cardElement = e.target.closest('arcana-card');
   if (cardElement) {
     const cardName = cardElement.dataset.name;
-    console.log(`[UI] User clicked to remove card: ${cardName}`);
     despawnCard(cardName);
     if (cardContainer.children.length <= defaultCardCount) {
       spawnRandomCards(1);
     }
 
-    //repositionAllCards();
     setTimeout(patternPlace, 100);
-    //patternPlace();
   }
 });
 
@@ -239,11 +194,11 @@ cardContainer.addEventListener('card-drag', updateLines);
 window.addEventListener("resize", updateLines);
 window.addEventListener("resize", computeGrid);
 
-// --- 5. INITIALIZATION ---
-// Kick everything off.
+
+// Initialization
+
 async function main() {
   await initializeCards(initialCardData);
-  console.log('[UI] Initializing with default cards.');
   resetSvgAnimation();
   computeGrid();
   spawnRandomCards(defaultCardCount);
@@ -257,11 +212,8 @@ async function main() {
   }, 500);
 
   updateLines();
-  //repositionAllCards();
 }
 
 window.addEventListener('DOMContentLoaded', () => {
   main();
 });
-
-console.log('[UI] Grid positions initialized:', gridPositions);
